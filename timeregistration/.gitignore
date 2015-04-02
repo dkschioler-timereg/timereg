@@ -1,0 +1,10 @@
+/target/
+/META-INF/
+/logs/
+/events/
+/.classpath
+/.project
+/.springBeans
+/dependencies.txt
+/timeregistrations.log
+/.settings/

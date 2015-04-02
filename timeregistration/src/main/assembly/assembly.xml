@@ -1,0 +1,42 @@
+<assembly>
+   <id></id>
+   <formats>
+      <format>zip</format>
+   </formats>
+   <!--  IN general: pom.xml ensures copy to target. All files are taken from there.
+    Makes it possible to run from target.
+    -->
+   <fileSets>
+      <fileSet>
+         <directory>target/bin</directory>
+         <outputDirectory></outputDirectory>
+         <includes>
+            <include>**/*.cmd</include>
+            <include>**/registry</include>
+         </includes>
+      </fileSet>
+
+      <fileSet>
+         <directory>target/Lib</directory>
+         <outputDirectory>Lib</outputDirectory>
+         <includes>
+            <include>**/*.jar</include>
+         </includes>
+      </fileSet>
+      <fileSet>
+         <directory>target/schema</directory>
+         <outputDirectory>schema</outputDirectory>
+         <includes>
+            <include>**/*.xsd</include>
+         </includes>
+      </fileSet>   
+          
+      <fileSet>
+         <directory>target/config</directory>
+         <outputDirectory>config</outputDirectory>
+         <includes>
+            <include>*.*</include>            
+         </includes>
+      </fileSet>
+   </fileSets>
+</assembly>

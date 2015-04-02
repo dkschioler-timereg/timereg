@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.schioler.dk/tools/timeregistration/model/schema" targetNamespace="http://www.schioler.dk/tools/timeregistration/model/schema"
+   elementFormDefault="unqualified">
+
+
+<!--    <xs:complexType name="UserType"> -->
+<!--       <xs:attribute name="user-id" use="required"> -->
+<!--          <xs:simpleType> -->
+<!--             <xs:restriction base="xs:string"> -->
+<!--                <xs:enumeration value="lars.schioler" /> -->
+<!--             </xs:restriction> -->
+<!--          </xs:simpleType> -->
+<!--       </xs:attribute> -->
+<!--    </xs:complexType> -->
+
+<!--    <xs:SimpleType name="ClientType">
+      <xs:attribute name="client-id" use="required">
+
+      </xs:attribute>
+   </xs:SimpleType>
+ -->
+   <xs:complexType name="ProjectType">
+      <xs:sequence>
+
+         <xs:element name="tasks" type="TaskSetType" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="client"  use="required" >
+       <xs:simpleType>
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="tryg.dk" />
+               <xs:enumeration value="nordea.com" />
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:complexType name="TaskSetType">
+      <xs:sequence>
+         <xs:element name="task" type="TaskType" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="TaskType">
+      <xs:sequence>
+         <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="acn-code" type="xs:string" use="required" />
+      <xs:attribute name="client-code" type="xs:string" use="required" />
+   </xs:complexType>
+
+   <!-- <xs:complexType name="DatapowerDomainTestType">
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+         <xs:element name="dns-name-server-status" type="DnsNameServerStatusType" minOccurs="0" maxOccurs="1" />
+         <xs:element name="environmental-sensors" type="EnvironmentalSensorsType" minOccurs="0" maxOccurs="1" />
+         <xs:element name="firmware-version" type="FirmwareVersionType" minOccurs="0" maxOccurs="1" />
+         <xs:element name="network-interface-status" type="NetworkInterfaceType" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="tcp-table" type="TCPTableType" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="object-status" type="ObjectStatusType" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="domain-status" type="DomainStatusType" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="tcp-connection-test" type="TCPConnectionTestType" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element name="ntp-status" type="NTPRefreshStatusType" minOccurs="0" maxOccurs="1" />
+         <xs:element name="crypto-engine" type="CryptoEngineType" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+      <xs:attribute name="domain" type="xs:string" use="required" />
+   </xs:complexType>
+
+   <xs:complexType name="TargetRefNodeType">
+      <xs:attribute name="targetId" type="xs:string" use="required" />
+   </xs:complexType>
+
+  ALL TEST TYPES
+
+   <xs:complexType name="AbstractTestType" abstract="true">
+
+   </xs:complexType>
+   <xs:complexType name="CryptoEngineType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="engine-type" type="xs:string" use="optional" />
+            <xs:attribute name="fips-level" type="xs:integer" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="EnvironmentalSensorsType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="powersupply" type="OKORBAD" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="FirmwareVersionType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="serial" type="xs:string" use="optional" />
+            <xs:attribute name="version" type="xs:string" use="optional" />
+            <xs:attribute name="build" type="xs:string" use="optional" />
+            <xs:attribute name="build-date" type="xs:string" use="optional" />
+            <xs:attribute name="machine-type" type="xs:string" use="optional" />
+            <xs:attribute name="model-type" type="xs:string" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="TCPConnectionTestType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="remote-host" type="xs:string" use="required" />
+            <xs:attribute name="remote-port" type="xs:integer" use="required" />
+            <xs:attribute name="ip-Version" type="dp:dmIPVersion" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="TCPTableType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="local-ip" type="dp:dmLocalIPHostAddress" use="required" />
+            <xs:attribute name="local-port" type="xs:integer" use="required" />
+            <xs:attribute name="remote-ip" type="dp:dmLocalIPHostAddress" />
+            <xs:attribute name="remote-port" type="xs:integer" />
+            <xs:attribute name="state" type="TcpStates" use="required" />
+            <xs:attribute name="service-domain" type="xs:string" />
+            <xs:attribute name="service-class" type="xs:string" />
+            <xs:attribute name="service-name" type="xs:string" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="NetworkInterfaceType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="name" type="xs:string" use="optional" />
+            <xs:attribute name="interface-type" type="xs:string" use="optional" />
+            <xs:attribute name="admin-status" type="AdminStatus" use="optional" />
+            <xs:attribute name="oper-status" type="OpStates" use="optional" />
+            <xs:attribute name="ip" type="xs:string" use="required" />
+            <xs:attribute name="mac-address" type="xs:string" use="optional" />
+            <xs:attribute name="mtu" type="xs:integer" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="DnsNameServerStatusType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="ip-address" type="dp:dmLocalIPHostAddress" use="required" />
+            <xs:attribute name="tcp-port" type="xs:integer" use="required" />
+            <xs:attribute name="udp-port" type="xs:integer" />
+            <xs:attribute name="max-retries" type="xs:integer" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="DomainStatusType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="domain" type="xs:string" use="required" />
+            <xs:attribute name="save-needed" type="OnOffType" use="optional" />
+            <xs:attribute name="trace-enabled" type="OnOffType" use="optional" />
+            <xs:attribute name="debug-enabled" type="OnOffType" use="optional" />
+            <xs:attribute name="probe-enabled" type="OnOffType" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ProjectType">
+      <xs:complexContent>
+         <xs:extension base="AbstractTestType">
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="clazz" type="SupportedObjectStatusTypesType" use="required" />
+            <xs:attribute name="op-state" type="OpStates" use="optional" />
+            <xs:attribute name="admin-state" type="AdminStates" use="optional" />
+            <xs:attribute name="config-state" type="xs:string" use="optional" />
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType> -->
+
+
+</xs:schema>

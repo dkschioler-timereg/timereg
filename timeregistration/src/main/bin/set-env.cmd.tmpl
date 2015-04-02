@@ -1,0 +1,24 @@
+@echo off
+set CONFIG_DIR=
+set DEPENDENCY_HOME=
+set LOCAL_BASE_DIR=
+set CLASSPATH=
+
+IF DEFINED BASE_DIR (
+	set LOCAL_BASE_DIR=%BASE_DIR%
+    set DEPENDENCY_HOME=%LOCAL_BASE_DIR%/Lib
+    set CONFIG_DIR=%LOCAL_BASE_DIR%/config		
+) else (
+	rem @echo "basedir not set using empty"
+	set DEPENDENCY_HOME=Lib
+	set CONFIG_DIR=config
+)
+
+set CLASSPATH=%CONFIG_DIR%
+set ARTIFACT_ID=${project.artifactId}
+set CLASSPATH=%CLASSPATH%;Lib/%ARTIFACT_ID%-${project.version}.jar
+rem \$CLASSPATH will be replaced by plugin.
+$CLASSPATH
+
+set CLASSPATH=%CONFIG_DIR%;%CLASSPATH%
+	

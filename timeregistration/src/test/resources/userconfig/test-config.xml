@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:Userprojects xmlns:p="http://www.schioler.dk/tools/timeregistration/model/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.schioler.dk/tools/timeregistration/model/schema ../src/main/resources/schema/timeregistration-userprojects-config.xsd ">
+   <project>
+      <name>p1</name>
+      <task>
+         <name>p1t1</name>
+         <acn-code>WB123</acn-code>
+         <event></event>
+      </task>
+      <task>
+         <name>p1t2</name>
+         <acn-code>WB124</acn-code>
+      </task>
+   </project>
+   <project>
+      <name>p2</name>
+      <task>
+         <name>p2t1</name>
+         <acn-code>dut</acn-code>
+      </task>
+
+   </project>
+</p:Userprojects>

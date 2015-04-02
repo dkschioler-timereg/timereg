@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:Userprojects xmlns:p="http://www.schioler.dk/tools/timeregistration/model/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.schioler.dk/tools/timeregistration/model/schema ../src/main/resources/schema/timeregistration-userprojects-config.xsd ">
+   <project>
+      <name>AM</name>
+      <tasks>
+         <task>
+            <name>HP-14-3015-01 SOA Services_Other, Lunch </name>
+            <acn-code>Z002EN01</acn-code>
+         </task>
+         
+      </tasks>
+   </project>   
+</p:Userprojects>
