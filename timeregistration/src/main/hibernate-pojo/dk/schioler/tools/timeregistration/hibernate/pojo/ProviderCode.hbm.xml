@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.ProviderCode" table="provider_code" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="provider" class="dk.schioler.tools.timeregistration.hibernate.pojo.Provider" fetch="select">
+            <column name="provider_id" not-null="true" />
+        </many-to-one>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="20" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="60" not-null="true" />
+        </property>
+        <set name="userProviderCodeLinks" table="user_provider_code_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="provider_code_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserProviderCodeLink" />
+        </set>
+        <set name="registrationItems" table="registration_item" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="provider_code_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationItem" />
+        </set>
+    </class>
+</hibernate-mapping>

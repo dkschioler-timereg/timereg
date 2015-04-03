@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationItem" table="registration_item" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="clientCode" class="dk.schioler.tools.timeregistration.hibernate.pojo.ClientCode" fetch="select">
+            <column name="client_code_id" />
+        </many-to-one>
+        <many-to-one name="providerCode" class="dk.schioler.tools.timeregistration.hibernate.pojo.ProviderCode" fetch="select">
+            <column name="provider_code_id" not-null="true" />
+        </many-to-one>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="ended" type="timestamp">
+            <column name="ended" length="19" not-null="true" />
+        </property>
+        <property name="projectName" type="string">
+            <column name="project_name" length="120" not-null="true" />
+        </property>
+        <property name="itemName" type="string">
+            <column name="item_name" length="120" not-null="true" />
+        </property>
+        <set name="registrationSubmitteds" table="registration_submitted" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="registration_item_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationSubmitted" />
+        </set>
+        <set name="userRegistrationItemLinks" table="user_registration_item_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="registration_item_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserRegistrationItemLink" />
+        </set>
+        <set name="registrationEvents" table="registration_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="registration_item_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationEvent" />
+        </set>
+    </class>
+</hibernate-mapping>

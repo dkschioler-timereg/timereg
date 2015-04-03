@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.VwProviderCode" table="vw_provider_code" catalog="timereg" optimistic-lock="version">
+        <composite-id name="id" class="dk.schioler.tools.timeregistration.hibernate.pojo.VwProviderCodeId">
+            <key-property name="providerId" type="int">
+                <column name="provider_id" />
+            </key-property>
+            <key-property name="providerName" type="string">
+                <column name="provider_name" length="60" />
+            </key-property>
+            <key-property name="providerCode" type="string">
+                <column name="provider_code" length="20" />
+            </key-property>
+            <key-property name="providerCodeName" type="string">
+                <column name="provider_code_name" length="60" />
+            </key-property>
+            <key-property name="providerCodeId" type="int">
+                <column name="provider_code_id" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

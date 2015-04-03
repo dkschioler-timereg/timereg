@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.Users" table="users" catalog="timereg" optimistic-lock="version">
+        <composite-id name="id" class="dk.schioler.tools.timeregistration.hibernate.pojo.UsersId">
+            <key-property name="username" type="string">
+                <column name="username" length="80" />
+            </key-property>
+            <key-property name="password" type="string">
+                <column name="password" length="60" />
+            </key-property>
+            <key-property name="enabled" type="boolean">
+                <column name="enabled" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

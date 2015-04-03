@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.User" table="user" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="80" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="140" />
+        </property>
+        <property name="isLoginEnabled" type="string">
+            <column name="is_login_enabled" length="2" not-null="true" />
+        </property>
+        <property name="enabled" type="boolean">
+            <column name="enabled" not-null="true" />
+        </property>
+        <set name="userPasswordLinks" table="user_password_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserPasswordLink" />
+        </set>
+        <set name="registrationSubmitteds" table="registration_submitted" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationSubmitted" />
+        </set>
+        <set name="userProviderCodeLinks" table="user_provider_code_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserProviderCodeLink" />
+        </set>
+        <set name="registrationEvents" table="registration_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.RegistrationEvent" />
+        </set>
+        <set name="userClientCodeLinks" table="user_client_code_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserClientCodeLink" />
+        </set>
+        <set name="userRoleLinks" table="user_role_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserRoleLink" />
+        </set>
+        <set name="userRegistrationItemLinks" table="user_registration_item_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.schioler.tools.timeregistration.hibernate.pojo.UserRegistrationItemLink" />
+        </set>
+    </class>
+</hibernate-mapping>

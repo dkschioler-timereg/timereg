@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-04-2015 09:48:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.schioler.tools.timeregistration.hibernate.pojo.VwUserRegistrationEvent" table="vw_user_registration_event" catalog="timereg" optimistic-lock="version">
+        <composite-id name="id" class="dk.schioler.tools.timeregistration.hibernate.pojo.VwUserRegistrationEventId">
+            <key-property name="userId" type="int">
+                <column name="user_id" />
+            </key-property>
+            <key-property name="userLogin" type="string">
+                <column name="user_login" length="80" />
+            </key-property>
+            <key-property name="itemId" type="int">
+                <column name="item_id" />
+            </key-property>
+            <key-property name="itemProjectName" type="string">
+                <column name="item_project_name" length="120" />
+            </key-property>
+            <key-property name="itemItemName" type="string">
+                <column name="item_item_name" length="120" />
+            </key-property>
+            <key-property name="clientName" type="string">
+                <column name="client_name" length="60" />
+            </key-property>
+            <key-property name="clientCode" type="string">
+                <column name="client_code" length="20" />
+            </key-property>
+            <key-property name="clientCodeName" type="string">
+                <column name="client_code_name" length="60" />
+            </key-property>
+            <key-property name="providerName" type="string">
+                <column name="provider_name" length="60" />
+            </key-property>
+            <key-property name="providerCode" type="string">
+                <column name="provider_code" length="20" />
+            </key-property>
+            <key-property name="providerCodeName" type="string">
+                <column name="provider_code_name" length="60" />
+            </key-property>
+            <key-property name="eventId" type="int">
+                <column name="event_id" />
+            </key-property>
+            <key-property name="eventTime" type="timestamp">
+                <column name="event_time" length="19" />
+            </key-property>
+            <key-property name="comments" type="string">
+                <column name="comments" length="120" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
