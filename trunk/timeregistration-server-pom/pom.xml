@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dk.schioler.tools.timeregistration.server</groupId>
+	<artifactId>timeregistration-server-pom</artifactId>
+	<name>Time registration tool</name>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>dk.schioler.tools.timeregistration</groupId>
+		<artifactId>timeregistration-parent-pom</artifactId>
+		<version>1.0</version>
+		<relativePath>../timeregistration-parent-pom</relativePath>
+	</parent>
+	<modules>
+		<module>timeregistration-server-properties</module>
+		<module>timeregistration-server-war</module>
+	</modules>
+</project>

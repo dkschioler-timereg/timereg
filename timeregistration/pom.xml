@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dk.schioler.tools</groupId>
-	<artifactId>timeregistration</artifactId>
+	<artifactId>timeregistration-common</artifactId>
 	<name>Time registration tool</name>
 	<version>0.5</version>
 	<packaging>war</packaging>
@@ -68,13 +68,13 @@
 		</dependency>
 		<!-- Spring Core -->
 		<!-- Spring Web -->
-	<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-webmvc</artifactId>
- 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+
 			<version>${spring.web.version}</version>
-</dependency>
-		
+		</dependency>
+
 		<!-- Spring Web -->
 		<!-- Spring Security -->
 		<dependency>
@@ -125,6 +125,11 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
 		</dependency>
 		<!-- WEB stuff -->
 		<!-- <dependency> <groupId>org.jvnet.jaxb2_commons</groupId> <artifactId>jaxb2-basics-runtime</artifactId> 
