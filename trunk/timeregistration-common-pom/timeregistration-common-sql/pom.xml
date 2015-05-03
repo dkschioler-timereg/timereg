@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>timeregistration-common-sql</artifactId>
-	<name>Time registration tool</name>
+	<name>Time registration tool - SQL</name>
 	<version>0.5</version>
 	<packaging>jar</packaging>
 	<parent>
