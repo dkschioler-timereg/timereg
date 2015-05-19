@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="dk.bitmovers.timeregistration.data.provider.impl.hibernate" />
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="poolName" value="springHikariCP" />
+		<property name="connectionTestQuery" value="SELECT 1" />
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/timereg" />
+		<property name="username" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	<tx:annotation-driven />
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="packagesToScan" value="dk.bitmovers.timeregistration.model" />
+		<property name="hibernateProperties">
+			<props>
+			
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>/dk/bitmovers/timeregistration/model/Client.hbm.xml</value>
+				<value>/dk/bitmovers/timeregistration/model/ClientProject.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/Provider.hbm.xml</value>
+				<value>/dk/bitmovers/timeregistration/model/ProviderAccount.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/RegistrationEvent.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/RegistrationItem.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/RegistrationSubmitted.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/Role.hbm.xml</value>
+				<value>/dk/bitmovers/timeregistration/model/User.hbm.xml</value>
+				<value>/dk/bitmovers/timeregistration/model/UserPassword.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/UserRoleLink.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/WorkClockEvent.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/WorkClockEventType.hbm.xml
+				</value>
+				<value>/dk/bitmovers/timeregistration/model/query-defs.hbm.xml
+				</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
+	</bean>
+	<!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) <tx:advice id="txAdvice" transaction-manager="txManager"> the transactional semantics... <tx:attributes> 
+		all methods starting with 'get' are read-only <tx:method name="retrieve*" read-only="true"/> other methods use the default transaction settings (see below) <tx:method name="*"/> </tx:attributes> 
+		</tx:advice> -->
+
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 3, 2015 11:56:32 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.bitmovers.timeregistration.model.User" table="user" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="80" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="140" />
+        </property>
+        <property name="isLoginEnabled" type="string">
+            <column name="is_login_enabled" length="2" not-null="true" />
+        </property>
+        <property name="enabled" type="byte">
+            <column name="enabled" not-null="true" />
+        </property>
+        <set name="registrationSubmitteds" table="registration_submitted" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.RegistrationSubmitted" />
+        </set>
+        <set name="clients" table="client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.Client" />
+        </set>
+        <set name="providerAccounts" table="provider_account" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.ProviderAccount" />
+        </set>
+        <set name="workClockEvents" table="work_clock_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.WorkClockEvent" />
+        </set>
+        <set name="providers" table="provider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.Provider" />
+        </set>
+        <set name="registrationEvents" table="registration_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.RegistrationEvent" />
+        </set>
+        <set name="registrationItems" table="registration_item" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.RegistrationItem" />
+        </set>
+        <set name="userRoleLinks" table="user_role_link" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.UserRoleLink" />
+        </set>
+        <set name="userPasswords" table="user_password" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.UserPassword" />
+        </set>
+        <set name="clientProjects" table="client_project" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.ClientProject" />
+        </set>
+    </class>
+</hibernate-mapping>

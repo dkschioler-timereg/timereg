@@ -1,0 +1,110 @@
+DIV.menu {
+	background-color: lightblue;
+}
+
+html {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	background-color: white;
+}
+
+table.container {
+	/* //background-color: rgb(220, 220, 210); */
+	border-width: 1;
+	border-style: ridge;
+	width: 60%;
+	text-align: center;
+}
+
+table.menu {
+	background-color: Gray;
+	width: 100%;
+	margin-bottom: 0.5em;
+	height: 3em;
+	vertical-align: bottom;
+}
+
+a.menu {
+	color: white;
+}
+
+td.menu {
+	border-width: 1;
+	vertical-align: bottom;
+}
+
+table.status {
+	background-color: lightgray;
+	border-width: 1;
+	width: 100%;
+	margin-bottom: 0.5em;
+	text-align: left;
+	height: 2em;
+}
+
+td.statustitle {
+	width: 10%;
+	text-align: right;
+}
+
+td.statustext {
+	width: 90%;
+	padding-left: 0.5em;
+}
+
+tr.eventinputheader {
+	background-color: lightblue;
+	border-width: 0;
+}
+
+td.eventinputheader {
+	background-color: lightblue;
+	border-width: 3;
+	font-weight: bold;
+	text-align: left;
+	padding-left: 0.5em;
+}
+
+table.eventinput {
+	background-color: rgb(200, 210, 210);
+	border-width: 1;
+	/* border-style: groove; */
+	width: 100%;
+}
+
+td.eventinputsubmit {
+	width: 10%;
+}
+
+td.eventinputitem {
+	width: 20%;
+	text-align: left;
+	padding-left: 0.5em;
+}
+
+td.eventinputtime {
+	width: 20%;
+	text-align: left;
+	padding-left: 0.5em;
+}
+
+td.eventinputcomment {
+	width: 50%;
+	text-align: left;
+	padding-left: 0.5em;
+}
+
+input.leftcol {
+	width: 100%;
+}
+
+input.leftmidcol {
+width: 95%;	
+}
+
+input.rightmidcol {
+	width: 95%;
+}
+
+input.rightcol {
+	width: 98%;
+}

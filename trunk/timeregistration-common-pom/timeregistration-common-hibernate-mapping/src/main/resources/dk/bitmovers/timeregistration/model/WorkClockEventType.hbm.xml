@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 3, 2015 11:56:32 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.bitmovers.timeregistration.model.WorkClockEventType" table="work_clock_event_type" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="eventType" type="string">
+            <column name="event_type" length="60" not-null="true" />
+        </property>
+        <set name="workClockEvents" table="work_clock_event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="work_clock_event_type_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.WorkClockEvent" />
+        </set>
+    </class>
+</hibernate-mapping>

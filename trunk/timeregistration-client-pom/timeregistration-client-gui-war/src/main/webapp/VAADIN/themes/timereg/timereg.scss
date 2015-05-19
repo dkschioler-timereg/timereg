@@ -1,0 +1,155 @@
+
+// Global variable overrides. Must be declared before importing Valo.
+
+// Defines the plaintext font size, weight and family. Font size affects general component sizing.
+//$v-font-size: 16px;
+//$v-font-weight: 300;
+//$v-font-family: "Open Sans", sans-serif;
+
+// Defines the border used by all components.
+$v-border: 2px solid (v-shade 0.7);
+//$v-border-radius: 4px;
+
+// Affects the color of some component elements, e.g Button, Panel title, etc
+//$v-background-color: hsl(210, 0%, 98%);
+// Affects the color of content areas, e.g  Panel and Window content, TextField input etc
+//$v-app-background-color: $v-background-color;
+
+// Affects the visual appearance of all components
+//$v-gradient: v-linear 8%;
+//$v-bevel-depth: 30%;
+//$v-shadow-opacity: 5%;
+
+// Defines colors for indicating status (focus, success, failure)
+//$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
+//$v-friendly-color: #2c9720;
+//$v-error-indicator-color: #ed473b;
+
+// For more information, see: https://vaadin.com/book/-/page/themes.valo.html
+// Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
+
+//$v-border: 2px solid #ddd;
+//$v-background-color: #799;
+@import "../valo/valo.scss";
+
+@mixin timereg {
+  @include valo;
+  
+  .timereg-ui{
+  	//position:relative;
+     width: 80%;
+     backgound-color: #123;
+     text-align: center;
+     vertical-align: middle;
+     border: 5px solid black;
+  }
+  
+  // ************************
+  
+  .timereg-page{
+  	//position:relative;
+     width: 800px;
+     
+     background-color: #B1EBF2;
+     text-align: center;
+     vertical-align: middle;
+     //border: 5px ridge cyan;
+  }
+  
+ // ************************
+  
+ .timereg-header{
+    width: 100%;
+    //background-color: #DDD;
+    color: green;
+    text-align: center;
+     vertical-align: bottom;
+   // border: 3px outset yellow;
+  }
+  
+ .timereg-row{
+    width: 100%;
+   // background-color: #995;
+    color: green;
+     text-align: center;
+     vertical-align: bottom;
+  // border: 6px outset #567;
+  }
+  
+ .timereg-footer{
+    width: 100%;
+   // background-color: #995;
+    color: green;
+      text-align: left;
+     vertical-align: bottom;
+     border: 2px outset green;
+  }
+  
+  
+  // ************************
+
+  .timereg-menu{
+   // width: 70%;
+    //background-color: #DEF;
+     color: green;
+     text-align: center;
+     vertical-align: middle;
+     //border: 1px solid green;
+  }
+  
+  .timereg-component{
+   width: 100%;
+   //background-color: #866;
+   //color: red	;
+   text-align: center;
+   vertical-align: middle;
+     //border: 5px solid red;
+  }
+
+
+.tr-button{
+  	//float: left;
+  	//display:block;
+    //text-align: center;
+     //backgound-color: #777;
+    //color: magenta;
+    vertical-align: middle;
+     border: 2px groove black;
+     margin-right:5px;
+  }  
+
+.tr-label{
+  	//float: left;
+  	//display:block;
+    text-align: right;
+    height:2em;
+    padding-right:5px;
+     //backgound-color: #777;
+    //color: magenta;
+    vertical-align: middle;
+     border: 2px groove black;
+     margin-right:10px;
+  }
+  
+.tr-component{
+  //float: right;
+  width: 200px;
+     text-align: center;
+     //backgound-color: #777;
+    color: magenta;
+     margin-right:5px;
+     vertical-align: bottom;
+  }
+  
+  .tr-status{
+  //float: right;
+  	width: 200px;
+     text-align: center;
+     //backgound-color: #777;
+    color: magenta;
+     margin-right:5px;
+     vertical-align: bottom;
+  }
+  
+  
+}

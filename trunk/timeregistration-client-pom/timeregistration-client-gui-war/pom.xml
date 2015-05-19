@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>timeregistration-client-gui-war</artifactId>
+	<version>0.5</version>
+	<packaging>war</packaging>
+
+
+	<parent>
+		<groupId>dk.schioler.tools.timeregistration.client</groupId>
+		<artifactId>timeregistration-client-pom</artifactId>
+		<version>1.0</version>
+
+	</parent>
+	<dependencies>
+
+
+		<dependency>
+			<groupId>dk.schioler.tools.timeregistration.common</groupId>
+			<artifactId>timeregistration-common-web-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>dk.schioler.tools.timeregistration.common</groupId>
+			<artifactId>timeregistration-common-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>dk.schioler.tools.timeregistration.common</groupId>
+			<artifactId>timeregistration-common-hibernate</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>dk.schioler.tools.timeregistration.common</groupId>
+			<artifactId>timeregistration-common-hibernate-mapping</artifactId>
+		</dependency>
+		<dependency>
+			<artifactId>timeregistration-common-model</artifactId>
+			<groupId>dk.schioler.tools.timeregistration.common</groupId>
+		</dependency>
+
+		<!-- XXX -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<version>7.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiled</artifactId>
+			<version>7.4.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-themes</artifactId>
+			<version>7.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-widgets</artifactId>
+			<version>7.4.5</version>
+		</dependency>
+	</dependencies>
+	<build>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+
+				<!-- <configuration> -->
+				<!-- <source>1.7</source> -->
+				<!-- <target>1.7</target> -->
+				<!-- </configuration> -->
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+
+				<configuration>
+					<warSourceDirectory>webapp</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

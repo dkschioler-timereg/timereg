@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<query name="user.activePassword"><![CDATA[Select u, up from User as u  join u.userPasswords up  where u.login = ? and up.isActive = 'Y' and u.isLoginEnabled='Y']]>
+    </query>
+</hibernate-mapping>

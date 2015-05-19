@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dk.schioler.tools.timeregistration.common</groupId>
 	<artifactId>timeregistration-common-pom</artifactId>
-	<name>Time registration tool</name>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>dk.schioler.tools.timeregistration</groupId>
@@ -12,6 +11,10 @@
 		<relativePath>../timeregistration-parent-pom</relativePath>
 	</parent>
 	<modules>
+		<module>timeregistration-common-model</module>
 		<module>timeregistration-common-jar</module>
+		<module>timeregistration-common-hibernate-mapping</module>
+		<module>timeregistration-common-hibernate</module>
+		<module>timeregistration-common-web-jar</module>
 	</modules>
 </project>

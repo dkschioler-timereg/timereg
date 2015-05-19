@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 3, 2015 11:56:32 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dk.bitmovers.timeregistration.model.ProviderAccount" table="provider_account" catalog="timereg" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="provider" class="dk.bitmovers.timeregistration.model.Provider" fetch="select">
+            <column name="provider_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="dk.bitmovers.timeregistration.model.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <property name="created" type="timestamp">
+            <column name="created" length="19" not-null="true" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="60" not-null="true" />
+        </property>
+        <property name="isActive" type="string">
+            <column name="is_active" length="2" not-null="true" />
+        </property>
+        <set name="registrationItems" table="registration_item" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="provider_account_id" not-null="true" />
+            </key>
+            <one-to-many class="dk.bitmovers.timeregistration.model.RegistrationItem" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -14,5 +14,6 @@
 	<modules>
 		<module>timeregistration-client-properties</module>
 		<module>timeregistration-client-war</module>
+		<module>timeregistration-client-gui-war</module>
 	</modules>
 </project>
