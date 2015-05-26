@@ -1,9 +1,8 @@
-package dk.bitmovers.timeregistration.client.gui.event.handler;
+package dk.bitmovers.timeregistration.client.gui;
 
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEvent;
 import dk.bitmovers.timeregistration.common.TimeregistrationException;
 
-public interface TimeregistrationEventHandler {
+public interface TimeregistrationEventListener {
 	public boolean supports(TimeregistrationEvent event) throws TimeregistrationException;
 
 	public String handleEvent(TimeregistrationEvent event) throws TimeregistrationException;

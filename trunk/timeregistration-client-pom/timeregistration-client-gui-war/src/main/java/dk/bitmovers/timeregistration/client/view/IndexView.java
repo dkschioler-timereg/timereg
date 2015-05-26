@@ -1,55 +1,43 @@
 package dk.bitmovers.timeregistration.client.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 
+import dk.bitmovers.timeregistration.client.gui.TimeregistrationEvent;
 import dk.bitmovers.timeregistration.client.gui.TimeregistrationNavigatorUI;
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEvent;
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEventListener;
-import dk.bitmovers.timeregistration.client.gui.event.handler.TimeregistrationEventHandler;
-import dk.bitmovers.timeregistration.client.gui.event.handler.TimeregistrationEventHandlerClientUpdate;
-import dk.bitmovers.timeregistration.client.gui.event.handler.TimeregistrationEventHandlerClockStart;
-import dk.bitmovers.timeregistration.client.gui.event.handler.TimeregistrationEventHandlerClockStop;
-import dk.bitmovers.timeregistration.client.gui.event.handler.TimeregistrationEventHandlerProviderUpdate;
+import dk.bitmovers.timeregistration.client.gui.ViewManager.ViewInfo;
+import dk.bitmovers.timeregistration.client.gui.component.ClientComponent;
+import dk.bitmovers.timeregistration.client.gui.component.ProviderComponent;
+import dk.bitmovers.timeregistration.client.gui.component.WorkClockComponent;
+import dk.bitmovers.timeregistration.client.gui.data.DataProvider;
+import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEventClientUpdate;
 import dk.bitmovers.timeregistration.client.gui.util.TimeregStyle;
-import dk.bitmovers.timeregistration.client.gui.vaadin.components.ClientComponent;
-import dk.bitmovers.timeregistration.client.gui.vaadin.components.ProviderComponent;
-import dk.bitmovers.timeregistration.client.gui.vaadin.components.StatusComponent;
-import dk.bitmovers.timeregistration.client.gui.vaadin.components.WorkClockComponent;
-import dk.bitmovers.timeregistration.common.TimeregistrationException;
 import dk.bitmovers.timeregistration.model.Client;
 
 @Title("View")
-public class IndexView extends AbstractView<IndexView> implements TimeregistrationEventListener {
+public class IndexView extends AbstractView<IndexView> {
 
 	private static final long serialVersionUID = 1L;
 
-	WorkClockComponent workClockComponent = new WorkClockComponent(this);
-	ClientComponent clientComponent = new ClientComponent(this, TimeregStyle.TIMEREG_COMPONENT);
-	StatusComponent statusComponent = new StatusComponent();
-	ProviderComponent providers = new ProviderComponent(this);
+	WorkClockComponent workClockComponent = new WorkClockComponent("");
+	ClientComponent clientComponent = new ClientComponent(TimeregStyle.TIMEREG_COMPONENT);
 
-	List<TimeregistrationEventHandler> eventHandlers = new ArrayList<TimeregistrationEventHandler>();
+	ProviderComponent providers = new ProviderComponent(TimeregStyle.TIMEREG_COMPONENT);
 
-	public IndexView(TimeregistrationNavigatorUI trNavigator, Navigator navigator) {
-		super(IndexView.class, trNavigator, navigator);
+	public IndexView(TimeregistrationNavigatorUI timeregistrationNavigatorUI, ViewInfo viewInfo, DataProvider dataProvider) {
+		super(timeregistrationNavigatorUI, viewInfo, dataProvider);
 
-		eventHandlers.add(new TimeregistrationEventHandlerClientUpdate());
-		eventHandlers.add(new TimeregistrationEventHandlerProviderUpdate());
-		eventHandlers.add(new TimeregistrationEventHandlerClockStart(trNavigator.getWorkClockEventProvider()));
-		eventHandlers.add(new TimeregistrationEventHandlerClockStop(trNavigator.getWorkClockEventProvider()));
-
+		// Adding components:
 		CssLayout row1 = new CssLayout();
 
 		row1.addStyleName(TimeregStyle.TIMEREG_ROW);
+		clientComponent.addTimeregistrationEventListener(this);
 		row1.addComponent(clientComponent);
 
 		addComponent(row1);
@@ -68,20 +56,11 @@ public class IndexView extends AbstractView<IndexView> implements Timeregistrati
 
 		addComponent(row3);
 
-		statusComponent.setReadOnly(true);
-
-		CssLayout row4 = new CssLayout();
-
-		row4.addStyleName(TimeregStyle.TIMEREG_ROW);
-		row4.addComponent(statusComponent);
-
-		addComponent(row4);
-
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("IndexView calling");
+		Notification.show(getName());
 		initUserSession();
 
 	}
@@ -98,33 +77,38 @@ public class IndexView extends AbstractView<IndexView> implements Timeregistrati
 
 			List<Client> clients2 = trSession.getClients();
 			logger.debug("clients={}", clients2);
-			clientComponent.updateContent(trSession);
-			providers.updateContent(trSession);
+			clientComponent.updateContent(session, trSession, getDataProvider());
+			// providers.doInit(session, trSession, dataProvider);
 
 			isInit = true;
 		}
 	}
 
-	@Override
-	public String getName() {
-		return Views.INDEX;
-	}
+	protected TimeregistrationEvent handleEventInView(TimeregistrationEvent event) {
+		TimeregistrationEvent retval = null;
+		WrappedSession session = VaadinSession.getCurrent().getSession();
+		TimeRegistrationSession trSession = (TimeRegistrationSession) session.getAttribute(ViewTokens.SESSION_KEY_TIMEREGISTRATION_SESSION);
 
-	@Override
-	public Object handleEvent(TimeregistrationEvent event) throws TimeregistrationException {
-		logger.debug("handleEvent:" + event);
-		List<String> statusLines = new ArrayList<String>();
-
-		for (TimeregistrationEventHandler handler : this.eventHandlers) {
-			if (handler.supports(event)) {
-				logger.debug("EVENT HANDLED BY." + handler);
-				String status = handler.handleEvent(event);
-				statusLines.add(status);
+		if (event instanceof TimeregistrationEventClientUpdate) {
+			TimeregistrationEventClientUpdate e = (TimeregistrationEventClientUpdate) event;
+			String value = e.getValue();
+			String caption = e.getCaption();
+			// TODO fix lookup from db..
+			Client currentClient = null;
+			List<Client> clients2 = trSession.getClients();
+			for (Client client : clients2) {
+				if (String.valueOf(client.getId()).equals(value)) {
+					currentClient = client;
+					break;
+				}
 			}
+
+			trSession.setCurrentClient(currentClient);
+			e.updateStatus("Client selected=" + caption + ", id=" + value + ", has been set in session");
+			retval = e;
 		}
 
-		statusComponent.updateStatus(statusLines);
-		return null;
-	}
+		return retval;
 
+	}
 }

@@ -1,20 +1,20 @@
-package dk.bitmovers.timeregistration.client.gui.event.handler;
+package dk.bitmovers.timeregistration.client.gui.event.listener;
 
 import java.util.List;
 
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WrappedSession;
 
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEvent;
+import dk.bitmovers.timeregistration.client.gui.TimeregistrationEvent;
 import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEventProviderUpdate;
 import dk.bitmovers.timeregistration.client.view.TimeRegistrationSession;
 import dk.bitmovers.timeregistration.client.view.ViewTokens;
 import dk.bitmovers.timeregistration.common.TimeregistrationException;
 import dk.bitmovers.timeregistration.model.Provider;
 
-public class TimeregistrationEventHandlerProviderUpdate extends AbstractTimeregistrationEventHandler {
+public class TREventHandlersetCurrentProviderInTRSession extends AbstractTimeregistrationEventHandler {
 
-	public TimeregistrationEventHandlerProviderUpdate() {
+	public TREventHandlersetCurrentProviderInTRSession() {
 
 	}
 

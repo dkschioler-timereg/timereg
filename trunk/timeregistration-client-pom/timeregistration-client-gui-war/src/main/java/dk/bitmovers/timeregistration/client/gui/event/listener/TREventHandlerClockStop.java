@@ -1,8 +1,8 @@
-package dk.bitmovers.timeregistration.client.gui.event.handler;
+package dk.bitmovers.timeregistration.client.gui.event.listener;
 
 import java.util.List;
 
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEvent;
+import dk.bitmovers.timeregistration.client.gui.TimeregistrationEvent;
 import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEventWorkClockStop;
 import dk.bitmovers.timeregistration.client.view.TimeRegistrationSession;
 import dk.bitmovers.timeregistration.common.TimeregistrationException;
@@ -13,11 +13,11 @@ import dk.bitmovers.timeregistration.model.User;
 import dk.bitmovers.timeregistration.model.WorkClockEvent;
 import dk.bitmovers.timeregistration.model.WorkClockEventType;
 
-public class TimeregistrationEventHandlerClockStop extends AbstractTimeregistrationEventHandler {
+public class TREventHandlerClockStop extends AbstractTimeregistrationEventHandler {
 
 	WorkClockEventProvider workClockEventProvider;
 
-	public TimeregistrationEventHandlerClockStop(WorkClockEventProvider workClockEventProvider) {
+	public TREventHandlerClockStop(WorkClockEventProvider workClockEventProvider) {
 		this.workClockEventProvider = workClockEventProvider;
 	}
 

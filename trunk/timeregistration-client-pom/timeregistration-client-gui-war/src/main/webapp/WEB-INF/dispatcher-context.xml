@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<context:component-scan
-		base-package="dk.bitmovers.timeregistration.client.gui.util,dk.bitmovers.timeregistration.client.gui.vaadin.components,dk.bitmovers.timeregistration.client.view,dk.bitmovers.timeregistration.data.provider.impl.hibernate,dk.bitmovers.timeregistration.security, dk.bitmovers.timeregistration.client.filter, dk.bitmovers.timeregistration.client.gui.vaadin.components" />
+		base-package="dk.bitmovers.timeregistration.client.gui.data,dk.bitmovers.timeregistration.client.gui.util,dk.bitmovers.timeregistration.client.gui.vaadin.components,dk.bitmovers.timeregistration.client.view,dk.bitmovers.timeregistration.data.provider.impl.hibernate,dk.bitmovers.timeregistration.security, dk.bitmovers.timeregistration.client.filter, dk.bitmovers.timeregistration.client.gui.vaadin.components" />
 	<mvc:annotation-driven />
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />

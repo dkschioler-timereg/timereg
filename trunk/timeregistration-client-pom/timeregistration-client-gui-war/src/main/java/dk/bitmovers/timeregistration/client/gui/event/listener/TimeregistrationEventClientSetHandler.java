@@ -1,20 +1,20 @@
-package dk.bitmovers.timeregistration.client.gui.event.handler;
+package dk.bitmovers.timeregistration.client.gui.event.listener;
 
 import java.util.List;
 
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WrappedSession;
 
-import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEvent;
+import dk.bitmovers.timeregistration.client.gui.TimeregistrationEvent;
 import dk.bitmovers.timeregistration.client.gui.event.TimeregistrationEventClientUpdate;
 import dk.bitmovers.timeregistration.client.view.TimeRegistrationSession;
 import dk.bitmovers.timeregistration.client.view.ViewTokens;
 import dk.bitmovers.timeregistration.common.TimeregistrationException;
 import dk.bitmovers.timeregistration.model.Client;
 
-public class TimeregistrationEventHandlerClientUpdate extends AbstractTimeregistrationEventHandler {
+public class TimeregistrationEventClientSetHandler extends AbstractTimeregistrationEventHandler {
 
-	public TimeregistrationEventHandlerClientUpdate() {
+	public TimeregistrationEventClientSetHandler() {
 
 	}
 
@@ -35,11 +35,18 @@ public class TimeregistrationEventHandlerClientUpdate extends AbstractTimeregist
 
 		Client currentClient = null;
 		for (Client client : clients) {
-			if (client.getName().equals(value)) {
-				currentClient = client;
-				break;
+			int parseInt = -1;
+			try {
+				parseInt = Integer.parseInt(value);
+				if (client.getId() == parseInt) {
+					currentClient = client;
+					break;
+				}
+			} catch (NumberFormatException nfe) {
+				logger.error("Caught:" + nfe.getMessage(), nfe);
 			}
 		}
+		
 		trSession.setCurrentClient(currentClient);
 		return "Current client updated: " + currentClient.getName();
 

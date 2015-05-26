@@ -1,19 +1,18 @@
 package dk.bitmovers.timeregistration.client.gui.event;
 
+import dk.bitmovers.timeregistration.client.gui.TimeregistrationEvent;
+
 
 public class TimeregistrationEventClientUpdate extends TimeregistrationEvent {
 
 	private static final long serialVersionUID = 1L;
 
-	private final String value;
 
-	public TimeregistrationEventClientUpdate(String client) {
-		this.value = client;
+	public TimeregistrationEventClientUpdate(String value, String caption) {
+		super(value, caption);
+	
 	}
-
-	public String getValue() {
-		return value;
-	}
+	
 	
 
 }

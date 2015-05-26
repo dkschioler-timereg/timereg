@@ -1,5 +1,8 @@
 package dk.bitmovers.timeregistration.client.gui;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
@@ -10,20 +13,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.server.ClientConnector;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.ConnectorTracker;
 import com.vaadin.ui.UI;
 
+import dk.bitmovers.timeregistration.client.gui.data.DataProvider;
 import dk.bitmovers.timeregistration.client.gui.util.TimeregStyle;
-import dk.bitmovers.timeregistration.client.view.IndexView;
-import dk.bitmovers.timeregistration.client.view.ProviderView;
-import dk.bitmovers.timeregistration.client.view.TimeRegistrationView;
-import dk.bitmovers.timeregistration.client.view.Views;
+import dk.bitmovers.timeregistration.common.TimeregistrationException;
 import dk.bitmovers.timeregistration.data.provider.WorkClockEventProvider;
-import dk.bitmovers.timeregistration.model.WorkClockEvent;
 
 @Theme("timereg")
 @Title("Timeregistration")
@@ -36,13 +34,16 @@ public class TimeregistrationNavigatorUI extends UI {
 
 	WebApplicationContext webApplicationContext;
 
-	WorkClockEventProvider workClockEventProvider;
+	// WorkClockEventProvider workClockEventProvider;
 
-	TimeRegistrationView indexView;
+	DataProvider dataProvider;
 
-	private ConnectorTracker tracker;
+	// TimeRegistrationView indexView;
 
-	TimeRegistrationView providerView;
+	// private ConnectorTracker tracker;
+
+	// TimeRegistrationView providerView;
+	// TimeRegistrationView registrationView;
 
 	public TimeregistrationNavigatorUI() {
 
@@ -52,54 +53,101 @@ public class TimeregistrationNavigatorUI extends UI {
 		super(content);
 	}
 
-	@SuppressWarnings("serial")
-	@Override
-	public ConnectorTracker getConnectorTracker() {
-		if (this.tracker == null) {
-			this.tracker = new ConnectorTracker(this) {
-
-				@Override
-				public void registerConnector(ClientConnector connector) {
-					try {
-						super.registerConnector(connector);
-					} catch (RuntimeException e) {
-						logger.error("Failed connector: {0}", connector.getClass().getSimpleName());
-						throw e;
-					}
-				}
-
-			};
-		}
-
-		return tracker;
-	}
+	// @SuppressWarnings("serial")
+	// @Override
+	// public ConnectorTracker getConnectorTracker() {
+	// if (this.tracker == null) {
+	// this.tracker = new ConnectorTracker(this) {
+	//
+	// @Override
+	// public void registerConnector(ClientConnector connector) {
+	// try {
+	// super.registerConnector(connector);
+	// } catch (RuntimeException e) {
+	// logger.error("Failed connector: {0}",
+	// connector.getClass().getSimpleName());
+	// throw e;
+	// }
+	// }
+	//
+	// };
+	// }
+	//
+	// return tracker;
+	// }
 
 	@Override
 	protected void init(VaadinRequest request) {
 		logger.debug("*******************************");
 		ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
 		webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-		workClockEventProvider = webApplicationContext.getBean("workClockEventProvider", WorkClockEventProvider.class);
+		dataProvider = webApplicationContext.getBean("dataProvider", DataProvider.class);
+
 		navigator = new Navigator(this, this);
 
-		indexView = new IndexView(this, navigator);
-		providerView = new ProviderView(this, navigator);
+		for (ViewManager.ViewInfo info : ViewManager.VIEWS) {
+			Constructor<?> cTor = null;
+			Constructor<?>[] declaredConstructors = info.implementation.getDeclaredConstructors();
+			for (Constructor<?> constructor : declaredConstructors) {
+				Class<?>[] parameterTypes = constructor.getParameterTypes();
+				if (parameterTypes.length == 3) {
+					cTor = constructor;
+					break;
+				}
+			}
+			if (cTor == null) {
+				throw new TimeregistrationException("Did not find proper constructor for view:" + info);
+			}
+			logger.debug("Found constructor for view:{}", info);
 
-		navigator.addView("", indexView);
-		navigator.addView(Views.PROVIDER.toString(), providerView);
+			com.vaadin.navigator.View viewInstance;
+			try {
+
+				viewInstance = (com.vaadin.navigator.View) cTor.newInstance(this, info, dataProvider);
+				navigator.addView(info.navigateTo, viewInstance);
+				logger.debug(" VIEW VIEW VIEW ------------------- added new menu item:{}", viewInstance);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		// indexView = new IndexView(this, navigator);
+		// providerView = new ProviderView(this, navigator);
+		// providerView = new RegistrationView(this, navigator);
+		//
+		// navigator.addView("", indexView);
+		// navigator.addView(View.PROVIDER.toString(), providerView);
+		// navigator.addView(View.REGISTRATION.toString(), providerView);
 
 		this.addStyleName(TimeregStyle.TIMEREG_UI);
+		logger.debug("*******************************");
 	}
 
-	public WorkClockEventProvider getWorkClockEventProvider() {
-		return workClockEventProvider;
+
+
+	public Navigator getNavigator() {
+		return navigator;
 	}
 
-	
-//	public Integer persistWorkClockEvent(WorkClockEvent workClockEvent) {
-//
-//		Integer saveWorkClockEvent = workClockEventProvider.saveWorkClockEvent(workClockEvent);
-//		return saveWorkClockEvent;
-//	}
+	public WebApplicationContext getWebApplicationContext() {
+		return webApplicationContext;
+	}
+
+	// public Integer persistWorkClockEvent(WorkClockEvent workClockEvent) {
+	//
+	// Integer saveWorkClockEvent =
+	// workClockEventProvider.saveWorkClockEvent(workClockEvent);
+	// return saveWorkClockEvent;
+	// }
 
 }
