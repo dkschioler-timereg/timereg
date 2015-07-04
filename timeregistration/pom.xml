@@ -134,7 +134,28 @@
 		<!-- WEB stuff -->
 		<!-- <dependency> <groupId>org.jvnet.jaxb2_commons</groupId> <artifactId>jaxb2-basics-runtime</artifactId> 
 			<version>0.7.0</version> </dependency> -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<version>7.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiled</artifactId>
+			<version>7.5.0</version>
+		</dependency>
 
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-themes</artifactId>
+			<version>7.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-spring</artifactId>
+			<version>1.0.0.beta3</version>
+		</dependency>
 	</dependencies>
 	<build>
 
